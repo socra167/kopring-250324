@@ -1,5 +1,13 @@
 package com.example.upload.domain.post.post.entity;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
 import com.example.upload.domain.member.member.entity.Member;
 import com.example.upload.domain.post.comment.entity.Comment;
 import com.example.upload.domain.post.genFile.entity.PostGenFile;
@@ -8,12 +16,18 @@ import com.example.upload.global.dto.RsData;
 import com.example.upload.global.entity.BaseTime;
 import com.example.upload.global.exception.ServiceException;
 import com.example.upload.standard.util.Ut;
-import jakarta.persistence.*;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor
@@ -157,12 +171,11 @@ public class Post extends BaseTime {
 
     public Comment addComment(Member author, String content) {
 
-        Comment comment = Comment
-                .builder()
-                .post(this)
-                .author(author)
-                .content(content)
-                .build();
+        Comment comment = new Comment(
+            this,
+            author,
+            content
+        );
 
         comments.add(comment);
 

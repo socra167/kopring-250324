@@ -4,19 +4,18 @@ import com.example.upload.domain.member.member.entity.Member;
 import com.example.upload.domain.post.post.entity.Post;
 import com.example.upload.global.entity.BaseTime;
 import com.example.upload.global.exception.ServiceException;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@SuperBuilder
 public class Comment extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,6 +23,12 @@ public class Comment extends BaseTime {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
+
+    public Comment(Post post, Member author, String content) {
+        this.post = post;
+        this.author = author;
+        this.content = content;
+    }
 
     private String content;
 
