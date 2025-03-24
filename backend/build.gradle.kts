@@ -54,6 +54,10 @@ dependencies {
 	implementation("com.twelvemonkeys.imageio:imageio-png:3.8.1")
 	implementation("com.twelvemonkeys.imageio:imageio-gif:3.8.1")
 	implementation("com.twelvemonkeys.imageio:imageio-webp:3.8.1")
+
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
+	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
 tasks.test {
