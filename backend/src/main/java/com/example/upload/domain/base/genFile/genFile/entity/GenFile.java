@@ -1,18 +1,17 @@
 package com.example.upload.domain.base.genFile.genFile.entity;
 
+import java.util.Objects;
+
 import com.example.upload.global.app.AppConfig;
 import com.example.upload.global.entity.BaseTime;
+
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-
-import java.util.Objects;
 
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor
 @MappedSuperclass
 public abstract class GenFile extends BaseTime {
@@ -26,6 +25,19 @@ public abstract class GenFile extends BaseTime {
     private String fileExtType2Code;
     private String fileName;
     private long fileSize;
+
+    public GenFile(int fileNo, String originalFileName, String metadata, String fileDateDir, String fileExt,
+        String fileExtTypeCode, String fileExtType2Code, String fileName, long fileSize) {
+        this.fileNo = fileNo;
+        this.originalFileName = originalFileName;
+        this.metadata = metadata;
+        this.fileDateDir = fileDateDir;
+        this.fileExt = fileExt;
+        this.fileExtTypeCode = fileExtTypeCode;
+        this.fileExtType2Code = fileExtType2Code;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
+    }
 
     public String getFilePath() {
         return AppConfig.getGenFileDirPath() + "/" + getModelName() + "/" + getTypeCodeAsStr() + "/" + fileDateDir + "/" + fileName;
