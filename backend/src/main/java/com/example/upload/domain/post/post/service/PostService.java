@@ -1,11 +1,9 @@
 package com.example.upload.domain.post.post.service;
 
-import com.example.upload.domain.member.member.entity.Member;
-import com.example.upload.domain.post.post.dto.PostListParamDto;
-import com.example.upload.domain.post.post.entity.Post;
-import com.example.upload.domain.post.post.repository.PostRepository;
-import com.example.upload.global.dto.RsData;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,9 +11,13 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.example.upload.domain.member.member.entity.Member;
+import com.example.upload.domain.post.post.dto.PostListParamDto;
+import com.example.upload.domain.post.post.entity.Post;
+import com.example.upload.domain.post.post.repository.PostRepository;
+import com.example.upload.global.dto.RsData;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -26,14 +28,13 @@ public class PostService {
     public Post write(Member author, String title, String content, boolean published, boolean listed) {
 
         return postRepository.save(
-                Post
-                        .builder()
-                        .author(author)
-                        .title(title)
-                        .content(content)
-                        .published(published)
-                        .listed(listed)
-                        .build()
+            new Post(
+                author,
+                title,
+                content,
+                published,
+                listed
+            )
         );
     }
 

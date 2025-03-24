@@ -13,10 +13,8 @@ import com.example.upload.global.entity.BaseTime;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import lombok.experimental.SuperBuilder;
 
 @Entity
-@SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
 public class Member extends BaseTime {
     @Column(length = 100, unique = true)
@@ -40,6 +38,12 @@ public class Member extends BaseTime {
 
     public Member() {
 
+    }
+
+    public Member(Long id, String username, String nickname) {
+        super(id);
+        this.username = username;
+        this.nickname = nickname;
     }
 
     public String getUsername() {

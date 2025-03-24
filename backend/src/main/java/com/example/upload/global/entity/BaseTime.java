@@ -1,21 +1,25 @@
 package com.example.upload.global.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.MappedSuperclass;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+import java.time.LocalDateTime;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.MappedSuperclass;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@SuperBuilder
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseTime extends BaseEntity {
     @CreatedDate
@@ -31,5 +35,9 @@ public abstract class BaseTime extends BaseEntity {
     public void setCreateDateNow() {
         this.createdDate = LocalDateTime.now();
         this.modifiedDate = createdDate;
+    }
+
+    public BaseTime(Long id) {
+        super(id);
     }
 }

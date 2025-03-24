@@ -63,11 +63,11 @@ public class MemberService {
         String nickname = (String) payload.get("nickname");
 
         return Optional.of(
-                Member.builder()
-                        .id(id)
-                        .username(username)
-                        .nickname(nickname)
-                        .build()
+            new Member(
+                id,
+                username,
+                nickname
+            )
         );
     }
 
