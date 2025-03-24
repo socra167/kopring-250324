@@ -2,6 +2,7 @@ plugins {
 	kotlin("jvm") version "1.9.25"
 	kotlin("plugin.spring") version "1.9.25"
 	kotlin("plugin.jpa") version "1.9.25"
+	kotlin("kapt") version "1.9.25"
 	id("org.springframework.boot") version "3.4.2"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -69,10 +70,6 @@ dependencies {
 
 	implementation("org.apache.tika:tika-core:3.0.0")
 
-	implementation("com.twelvemonkeys.imageio:imageio-core:3.8.1")
-	implementation("com.twelvemonkeys.imageio:imageio-jpeg:3.8.1")
-	implementation("com.twelvemonkeys.imageio:imageio-png:3.8.1")
-	implementation("com.twelvemonkeys.imageio:imageio-gif:3.8.1")
 	implementation("com.twelvemonkeys.imageio:imageio-webp:3.8.1")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
