@@ -51,6 +51,9 @@ public class Post extends BaseTime {
         this.listed = listed;
     }
 
+    public Post() {
+    }
+
     public PostGenFile addGenFile(PostGenFile.TypeCode typeCode, String filePath) {
         return addGenFile(typeCode, 0, filePath);
     }
