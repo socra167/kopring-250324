@@ -6,8 +6,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 
 @SpringBootApplication
 @EnableJpaAuditing
-class NextUploadApplication
+class NextApplication
 
 fun main(args: Array<String>) {
-    SpringApplication.run(NextUploadApplication::class.java, *args)
+    SpringApplication.run(NextApplication::class.java, *args)
 }

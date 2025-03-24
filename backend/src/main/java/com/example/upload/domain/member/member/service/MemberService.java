@@ -1,12 +1,14 @@
 package com.example.upload.domain.member.member.service;
 
-import com.example.upload.domain.member.member.entity.Member;
-import com.example.upload.domain.member.member.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.upload.domain.member.member.entity.Member;
+import com.example.upload.domain.member.member.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
@@ -17,13 +19,13 @@ public class MemberService {
 
     public Member join(String username, String password, String nickname, String profileImgUrl) {
 
-        Member member = Member.builder()
-                .username(username)
-                .password(password)
-                .apiKey(username)
-                .nickname(nickname)
-                .profileImgUrl(profileImgUrl)
-                .build();
+        Member member = new Member(
+            username,
+            password,
+            username,
+            nickname,
+            profileImgUrl
+        );
 
         return memberRepository.save(member);
     }
