@@ -1,21 +1,19 @@
 package com.example.upload.global;
 
+import com.example.upload.domain.member.member.entity.Member;
+import com.example.upload.domain.member.member.service.MemberService;
+import com.example.upload.global.exception.ServiceException;
+import com.example.upload.global.security.SecurityUser;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
-
-import com.example.upload.domain.member.member.entity.Member;
-import com.example.upload.domain.member.member.service.MemberService;
-import com.example.upload.global.exception.ServiceException;
-import com.example.upload.global.security.SecurityUser;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 
 // Request, Response, Session, Cookie, Header
 @Component
@@ -54,9 +52,9 @@ public class Rq {
         SecurityUser user = (SecurityUser) principal;
 
         return new Member(
-            user.getId(),
-            user.getUsername(),
-            user.getNickname()
+                user.getId(),
+                user.getUsername(),
+                user.getNickname()
         );
     }
 

@@ -1,6 +1,6 @@
 plugins {
-	kotlin("jvm") version "1.9.25"
-	kotlin("plugin.spring") version "1.9.25"
+	kotlin("jvm") version "1.9.25" // 추가
+	kotlin("plugin.spring") version "1.9.25" // 추가
 	kotlin("plugin.jpa") version "1.9.25"
 	kotlin("kapt") version "1.9.25"
 	id("org.springframework.boot") version "3.4.2"
@@ -18,8 +18,7 @@ java {
 
 kotlin {
 	compilerOptions {
-		// Java - Kotlin 간 클래스 불러올 때 @NotNull, @Nullable 호환을 위한 설정
-		freeCompilerArgs.addAll("-Xjsr305-strict")
+		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
 }
 
@@ -49,21 +48,20 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
+
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
 	implementation("com.querydsl:querydsl-jpa:5.1.0:jakarta")
-	annotationProcessor("com.querydsl:querydsl-apt:5.1.0:jakarta")
-	annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-	annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+	kapt("com.querydsl:querydsl-apt:5.1.0:jakarta")
 
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")

@@ -1,13 +1,5 @@
 package com.example.upload.domain.post.post.entity;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
 import com.example.upload.domain.member.member.entity.Member;
 import com.example.upload.domain.post.comment.entity.Comment;
 import com.example.upload.domain.post.genFile.entity.PostGenFile;
@@ -16,16 +8,18 @@ import com.example.upload.global.dto.RsData;
 import com.example.upload.global.entity.BaseTime;
 import com.example.upload.global.exception.ServiceException;
 import com.example.upload.standard.util.Ut;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Post extends BaseTime {
@@ -51,9 +45,6 @@ public class Post extends BaseTime {
         this.listed = listed;
     }
 
-    public Post() {
-    }
-
     public PostGenFile addGenFile(PostGenFile.TypeCode typeCode, String filePath) {
         return addGenFile(typeCode, 0, filePath);
     }
@@ -77,19 +68,20 @@ public class Post extends BaseTime {
         long fileSize = Ut.file.getFileSize(filePath);
         fileNo = fileNo == 0 ? getNextGenFileNo(typeCode) : fileNo;
 
-        PostGenFile genFile = new PostGenFile(
-            this,
-            typeCode,
-            fileNo,
-            originalFileName,
-            metadataStr,
-            Ut.date.getCurrentDateFormatted("yyyy_MM_dd"),
-            fileExtTypeCode,
-            fileExtType2Code,
-            fileExt,
-            fileName,
-            fileSize
-        );
+        PostGenFile genFile =
+                new PostGenFile(
+                        this,
+                        typeCode,
+                        fileNo,
+                        originalFileName,
+                        metadataStr,
+                        Ut.date.getCurrentDateFormatted("yyyy_MM_dd"),
+                        fileExtTypeCode,
+                        fileExtType2Code,
+                        fileExt,
+                        fileName,
+                        fileSize
+                );
 
         genFiles.add(genFile);
         Ut.file.mv(filePath, genFile.getFilePath());
@@ -173,10 +165,11 @@ public class Post extends BaseTime {
 
     public Comment addComment(Member author, String content) {
 
+
         Comment comment = new Comment(
-            this,
-            author,
-            content
+                this,
+                author,
+                content
         );
 
         comments.add(comment);

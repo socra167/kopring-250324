@@ -1,17 +1,11 @@
 package com.example.upload.global.entity;
 
 import com.example.upload.standard.util.Ut;
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @MappedSuperclass
 @AllArgsConstructor
@@ -22,9 +16,9 @@ public abstract class BaseEntity {
 
     @Id // PRIMARY KEY
     @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
-    @Setter(AccessLevel.PRIVATE)
+    @Setter(AccessLevel.PROTECTED)
     @EqualsAndHashCode.Include
-    private Long id; // long -> null X, Long -> null O
+    public Long id; // TODO: 추후에 코틀린 전환 과정에서 해결
 
     public String getModelName() {
         String simpleName = this.getClass().getSimpleName();

@@ -4,7 +4,6 @@ import com.example.upload.domain.member.member.entity.Member;
 import com.example.upload.domain.post.post.entity.Post;
 import com.example.upload.global.entity.BaseTime;
 import com.example.upload.global.exception.ServiceException;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
@@ -24,13 +23,13 @@ public class Comment extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
+    private String content;
+
     public Comment(Post post, Member author, String content) {
         this.post = post;
         this.author = author;
         this.content = content;
     }
-
-    private String content;
 
     public void modify(String content) {
         this.content = content;

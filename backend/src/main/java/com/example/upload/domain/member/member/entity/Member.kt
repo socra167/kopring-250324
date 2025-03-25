@@ -1,106 +1,59 @@
-package com.example.upload.domain.member.member.entity;
+package com.example.upload.domain.member.member.entity
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import com.example.upload.global.entity.BaseTime
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import com.example.upload.global.entity.BaseTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Member extends BaseTime {
+class Member() : BaseTime() {
+
     @Column(length = 100, unique = true)
-    private String username;
+    lateinit var username: String
 
     @Column(length = 100)
-    private String password;
+    lateinit var password: String
+
     @Column(length = 100, unique = true)
-    private String apiKey;
+    lateinit var apiKey: String
+
     @Column(length = 100)
-    private String nickname;
-    private String profileImgUrl;
+    lateinit var nickname: String
+    lateinit var profileImgUrl: String
 
-    public Member(String username, String password, String apiKey, String nickname, String profileImgUrl) {
-        this.username = username;
-        this.password = password;
-        this.apiKey = apiKey;
-        this.nickname = nickname;
-        this.profileImgUrl = profileImgUrl;
+    constructor(id: Long, username: String, nickname: String): this() {
+        this.id = id
+        this.username = username
+        this.nickname = nickname
+        this.profileImgUrl = ""
     }
 
-    public Member() {
-
+    constructor(username: String, password:String, apiKey: String, nickname: String, profileImgUrl: String): this() {
+        this.id = id
+        this.username = username
+        this.password = password
+        this.apiKey = apiKey
+        this.nickname = nickname
+        this.profileImgUrl = profileImgUrl
     }
 
-    public Member(Long id, String username, String nickname) {
-        super(id);
-        this.username = username;
-        this.nickname = nickname;
+    val isAdmin: Boolean
+    get() = username == "admin"
+
+    val authoritiesAsString:List<String>
+    get() = if (isAdmin) listOf("ROLE_ADMIN") else emptyList()
+
+    val authorities: List<GrantedAuthority>
+    get() = authoritiesAsString.map { SimpleGrantedAuthority(it) }
+
+    val profileImgUrlOrDefault: String
+    get() = profileImgUrl.ifBlank{ "https://placehold.co/640x640?text=O_O" }
+
+    fun update(nickname: String) {
+        this.nickname = nickname
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public Member setUsername(String username) {
-        this.username = username;
-        return this;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getApiKey() {
-        return apiKey;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public Member setNickname(String nickname) {
-        this.nickname = nickname;
-        return this;
-    }
-
-    public boolean isAdmin() {
-        return username.equals("admin");
-    }
-
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return getMemberAuthoritesAsString()
-                .stream()
-                .map(SimpleGrantedAuthority::new)
-                .toList();
-
-    }
-
-    public List<String> getMemberAuthoritesAsString() {
-
-        List<String> authorities = new ArrayList<>();
-
-        if(isAdmin()) {
-            authorities.add("ROLE_ADMIN");
-        }
-
-        return authorities;
-    }
-
-    public void update(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getProfileImgUrlOrDefaultUrl() {
-        return (profileImgUrl == null || profileImgUrl.isBlank()) ? "https://placehold.co/640x640?text=O_O" : this.profileImgUrl;
-    }
 }
