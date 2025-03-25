@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-
 @Entity
 class Member() : BaseTime() {
 
