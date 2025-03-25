@@ -30,7 +30,6 @@ class Member() : BaseTime() {
     }
 
     constructor(username: String, password:String, apiKey: String, nickname: String, profileImgUrl: String): this() {
-        this.id = id
         this.username = username
         this.password = password
         this.apiKey = apiKey

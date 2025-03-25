@@ -190,7 +190,7 @@ class Post() :
     }
 
     val latestComment: Comment
-        get() = comments.maxByOrNull { it.id } ?: throw ServiceException("404-2", "존재하지 않는 댓글입니다.")
+        get() = comments.maxByOrNull { it.id!! } ?: throw ServiceException("404-2", "존재하지 않는 댓글입니다.")
 
     fun getHandleAuthority(actor: Member?): Boolean {
         if (actor == null) return false
@@ -199,8 +199,7 @@ class Post() :
         return actor == this.author
     }
 
-    fun checkActorCanMakeNewGenFile(actor: Member?) {
-
+    fun checkActorCanMakeNewGenFile(actor: Member) {
         getCheckActorCanMakeNewGenFileRs(actor)
             .takeIf { it.isFail }
             ?.let {
@@ -208,8 +207,8 @@ class Post() :
             }
     }
 
-    fun getCheckActorCanMakeNewGenFileRs(actor: Member?): RsData<Empty> {
-        if (actor == null) return RsData("401-1", "로그인 후 이용해주세요.")
+    fun getCheckActorCanMakeNewGenFileRs(actor: Member): RsData<Empty> {
+//        if (actor == null) return RsData("401-1", "로그인 후 이용해주세요.")
         if (actor == author) return RsData.OK
         return RsData("403-1", "작성자만 파일을 업로드할 수 있습니다.")
     }
